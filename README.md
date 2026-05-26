@@ -1,43 +1,20 @@
 # n8n-nodes-pandoc
 
-Ce package fournit un node personnalisé pour n8n permettant d'utiliser Pandoc pour convertir des documents entre différents formats.
+This package provides an n8n node for using Pandoc to convert documents between different formats.
 
 ## Installation
 
-### Installation dans n8n
+### Installation in n8n
+1. Go to your n8n instance settings
+2. Navigate to "Community Nodes"
+3. Click "Install"
+4. Enter `@neayi/n8n-pandoc`
 
-#### Option 1: Via l'interface n8n (recommandé pour les instances cloud)
-1. Accédez aux paramètres de votre instance n8n
-2. Allez dans "Community Nodes"
-3. Cliquez sur "Install"
-4. Entrez `@neayi/n8n-pandoc`
+### Prerequisites
+**Important:** Pandoc must be installed on the system where n8n is running.
 
-#### Option 2: Via npm (pour les installations locales/Docker)
-```bash
-npm install @neayi/n8n-pandoc
-```
-
-#### Option 3: Installation manuelle pour Docker
-Ajoutez le package dans votre Dockerfile ou docker-compose.yml :
-
-```dockerfile
-# Dans votre Dockerfile
-RUN cd /usr/local/lib/node_modules/n8n && npm install @neayi/n8n-pandoc
-```
-
-Ou dans docker-compose.yml :
-```yaml
-services:
-  n8n:
-    environment:
-      - N8N_COMMUNITY_PACKAGES=@neayi/n8n-pandoc
-```
-
-### Prérequis
-**Important:** Pandoc doit être installé sur le système où n8n s'exécute.
-
-#### Installation de Pandoc dans Docker
-Si vous utilisez n8n dans Docker, ajoutez Pandoc à votre image :
+#### Installing Pandoc in Docker
+To install Pandoc in n8n on Docker:
 
 ```dockerfile
 FROM docker.n8n.io/n8nio/n8n
@@ -62,22 +39,17 @@ COPY --from=downloader /usr/local/bin/pandoc /usr/local/bin/pandoc
 USER node
 ```
 
-#### Installation de Pandoc sur le système hôte
-- **Ubuntu/Debian:** `sudo apt-get install pandoc`
-- **MacOS:** `brew install pandoc`
-- **Windows:** Téléchargez depuis [pandoc.org](https://pandoc.org/installing.html)
+## Usage
 
-## Utilisation
+### Main Parameters
 
-### Paramètres principaux
+#### Input Type
+- **Binary Data:** Uses a binary file from a previous node
+- **Text:** Uses plain text directly from a parameter
 
-#### Type d'entrée
-- **Binary Data:** Utilise un fichier binaire depuis un node précédent
-- **Text:** Utilise du texte brut directement depuis un paramètre
+#### Supported Formats
 
-#### Formats supportés
-
-**Formats d'entrée:**
+**Input Formats:**
 - Markdown (Pandoc, GFM, CommonMark, strict, PHP Extra)
 - HTML
 - LaTeX
@@ -91,118 +63,46 @@ USER node
 - reStructuredText
 - Textile
 - Jupyter Notebook
-- Et beaucoup d'autres...
+- And many more...
 
-**Formats de sortie:**
+**Output Formats:**
 - HTML (4, 5)
-- Markdown (diverses variantes)
+- Markdown (various variants)
 - LaTeX
-- PDF (nécessite un moteur PDF comme XeLaTeX)
+- PDF (requires a PDF engine like XeLaTeX)
 - DOCX
 - ODT
 - EPUB (2, 3)
 - MediaWiki
 - PowerPoint (PPTX)
 - Plain Text
-- Et beaucoup d'autres...
+- And many more...
 
-#### Type de sortie
-- **Binary Data:** Produit un fichier binaire (utile pour PDF, DOCX, etc.)
-- **Text:** Retourne le texte converti dans le JSON
+#### Output Type
+- **Binary Data:** Produces a binary file (useful for PDF, DOCX, etc.)
+- **Text:** Returns the converted text in JSON
 
-### Options additionnelles
+### Additional Options
 
-- **Standalone:** Produit un document complet avec en-tête et pied de page
-- **Table of Contents:** Inclut une table des matières
-- **Number Sections:** Numérote les sections
-- **Self Contained:** Produit un document autonome (images et CSS intégrés)
-- **Wrap:** Mode de retour à la ligne (auto, none, preserve)
-- **Columns:** Largeur des colonnes pour le retour à la ligne
-- **Custom Pandoc Arguments:** Arguments personnalisés pour Pandoc
+- **Standalone:** Produces a complete document with header and footer
+- **Table of Contents:** Includes a table of contents
+- **Number Sections:** Numbers the sections
+- **Self Contained:** Produces a self-contained document (embedded images and CSS)
+- **Wrap:** Line wrapping mode (auto, none, preserve)
+- **Columns:** Column width for line wrapping
+- **Custom Pandoc Arguments:** Custom arguments for Pandoc
 
-### Exemples d'utilisation
 
-#### Exemple 1: Markdown vers HTML
-```
-Input Type: Text
-Input Text: # Mon titre\n\nMon contenu
-From Format: markdown
-To Format: html5
-Output Type: Text
-```
+## Configuration for your instance
 
-#### Exemple 2: DOCX vers PDF
-```
-Input Type: Binary Data
-Binary Property: data
-From Format: docx
-To Format: pdf
-Output Type: Binary Data
-Additional Options:
-  - Self Contained: true
-  - Custom Args: --pdf-engine=xelatex
-```
+For your instance at https://n8n.dev.tripleperformance.fr/, make sure that:
 
-#### Exemple 3: MediaWiki vers Markdown
-```
-Input Type: Text
-Input Text: == Section ==\n\n'''Gras''' et ''italique''
-From Format: mediawiki
-To Format: gfm
-Output Type: Text
-Additional Options:
-  - Standalone: false
-```
+1. Pandoc is installed in the Docker container
+2. The package is installed via npm in the container
+3. n8n has been restarted after installation
 
-#### Exemple 4: HTML vers DOCX
-```
-Input Type: Text
-Input Text: <h1>Titre</h1><p>Paragraphe</p>
-From Format: html
-To Format: docx
-Output Type: Binary Data
-Binary Property: document
-```
 
-## Workflow exemple
-
-```json
-{
-  "nodes": [
-    {
-      "parameters": {
-        "inputType": "text",
-        "inputText": "# Mon Document\n\n## Introduction\n\nCeci est un test.",
-        "fromFormat": "markdown",
-        "toFormat": "docx",
-        "outputType": "binary",
-        "outputBinaryPropertyName": "data"
-      },
-      "name": "Pandoc",
-      "type": "n8n-nodes-pandoc.pandoc",
-      "position": [250, 300]
-    }
-  ]
-}
-```
-
-## Configuration pour votre instance
-
-Pour votre instance sur https://n8n.dev.tripleperformance.fr/, assurez-vous que :
-
-1. Pandoc est installé dans le conteneur Docker
-2. Le package est installé via npm dans le conteneur
-3. n8n a été redémarré après l'installation
-
-### Vérification de l'installation
-
-Vous pouvez vérifier que Pandoc est disponible en utilisant un node "Execute Command" dans n8n :
-
-```bash
-pandoc --version
-```
-
-## Développement
+## Development
 
 ### Build
 ```bash
@@ -210,15 +110,10 @@ npm install
 npm run build
 ```
 
-### Développement avec watch mode
-```bash
-npm run dev
-```
-
 ### Lint
 ```bash
 npm run lint
-npm run lintfix  # Pour corriger automatiquement
+npm run lintfix  # To automatically fix issues
 ```
 
 ### Format
@@ -226,25 +121,22 @@ npm run lintfix  # Pour corriger automatiquement
 npm run format
 ```
 
-## Licence
+## License
 
 MIT
 
 ## Support
 
-Pour les problèmes et questions :
-- Créez une issue sur GitHub : https://github.com/neayi/n8n_pandoc/issues
-- Consultez la documentation Pandoc : https://pandoc.org/
+For issues and questions:
+- Create an issue on GitHub: https://github.com/neayi/n8n_pandoc/issues
+- Check the Pandoc documentation: https://pandoc.org/
 
-## Liens
+## Links
 
 - GitHub : https://github.com/neayi/n8n_pandoc
 - npm : https://www.npmjs.com/package/@neayi/n8n-pandoc
 
-## Contributeurs
+## Contributors
 
-Développé par Neayi pour Triple Performance
+Developped by Neayi for Triple Performance
 
----
-
-**Note:** Ce node nécessite que Pandoc soit installé sur le système hôte. Il ne fonctionne pas dans les environnements où vous ne pouvez pas installer de logiciels supplémentaires.
