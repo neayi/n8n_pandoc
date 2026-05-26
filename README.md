@@ -91,7 +91,7 @@ USER node
 - **Self Contained:** Produces a self-contained document (embedded images and CSS)
 - **Wrap:** Line wrapping mode (auto, none, preserve)
 - **Columns:** Column width for line wrapping
-- **Custom Pandoc Arguments:** Custom arguments for Pandoc
+- **Custom Pandoc Arguments:** Custom arguments for Pandoc (useful for example when converting from Markdown to Mediawiki, use : `-f markdown-auto_identifiers --wrap=preserve`)
 
 
 ## Configuration for your instance

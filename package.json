@@ -1,6 +1,6 @@
 {
   "name": "@neayi/n8n-nodes-pandoc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "n8n node to invoke Pandoc for document conversion",
   "keywords": [
     "n8n-community-node-package",
