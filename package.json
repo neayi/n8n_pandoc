@@ -1,0 +1,57 @@
+{
+  "name": "@neayi/n8n-pandoc",
+  "version": "0.1.0",
+  "description": "n8n node to invoke Pandoc for document conversion",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "pandoc",
+    "document",
+    "conversion"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/neayi/n8n_pandoc",
+  "author": {
+    "name": "Neayi",
+    "email": "contact@neayi.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neayi/n8n_pandoc.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier nodes --write",
+    "format:check": "prettier nodes --check",
+    "lint": "eslint 'nodes/**/*.ts' package.json",
+    "lintfix": "eslint 'nodes/**/*.ts' package.json --fix",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [],
+    "nodes": [
+      "dist/nodes/Pandoc/Pandoc.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^10.4.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.0",
+    "gulp": "^5.0.0",
+    "n8n-workflow": "^1.0.0",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "dependencies": {}
+}

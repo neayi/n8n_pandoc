@@ -1,0 +1,26 @@
+# Source files
+nodes/**/*.ts
+!nodes/**/*.d.ts
+
+# Development files
+.vscode/
+.git/
+.gitignore
+tsconfig.json
+.eslintrc.js
+.prettierrc.js
+gulpfile.js
+
+# Documentation files (keep README.md)
+INSTALLATION_DOCKER.md
+
+# Build artifacts
+*.log
+.DS_Store
+.env
+
+# Test files
+**/*.spec.ts
+**/*.test.ts
+test/
+tests/

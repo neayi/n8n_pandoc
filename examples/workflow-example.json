@@ -1,0 +1,130 @@
+{
+  "name": "Exemples Pandoc",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "When clicking 'Test workflow'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "inputType": "text",
+        "inputText": "# Mon Document\n\n## Introduction\n\nCeci est un **test** de conversion Markdown vers HTML.\n\n### Liste\n\n- Item 1\n- Item 2\n- Item 3\n\n```javascript\nconst hello = 'world';\n```",
+        "fromFormat": "markdown",
+        "toFormat": "html5",
+        "outputType": "text",
+        "additionalOptions": {
+          "standalone": true,
+          "toc": true
+        }
+      },
+      "name": "Markdown → HTML",
+      "type": "@neayi/n8n-pandoc.pandoc",
+      "typeVersion": 1,
+      "position": [460, 200]
+    },
+    {
+      "parameters": {
+        "inputType": "text",
+        "inputText": "== Section principale ==\n\n'''Texte en gras''' et ''texte en italique''.\n\n=== Sous-section ===\n\n* Liste 1\n* Liste 2\n\n[[Lien]] vers une page.",
+        "fromFormat": "mediawiki",
+        "toFormat": "gfm",
+        "outputType": "text",
+        "additionalOptions": {
+          "standalone": false
+        }
+      },
+      "name": "MediaWiki → Markdown",
+      "type": "@neayi/n8n-pandoc.pandoc",
+      "typeVersion": 1,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "inputType": "text",
+        "inputText": "# Document de test\n\nCe document sera converti en DOCX.",
+        "fromFormat": "markdown",
+        "toFormat": "docx",
+        "outputType": "binary",
+        "outputBinaryPropertyName": "document",
+        "additionalOptions": {
+          "standalone": true
+        }
+      },
+      "name": "Markdown → DOCX",
+      "type": "@neayi/n8n-pandoc.pandoc",
+      "typeVersion": 1,
+      "position": [460, 600]
+    },
+    {
+      "parameters": {
+        "mode": "jsonToBinary",
+        "options": {
+          "fileName": "document.docx"
+        }
+      },
+      "name": "Sauvegarder DOCX",
+      "type": "n8n-nodes-base.moveBinaryData",
+      "typeVersion": 1,
+      "position": [680, 600]
+    },
+    {
+      "parameters": {
+        "inputType": "text",
+        "inputText": "<html>\n<head><title>Test</title></head>\n<body>\n<h1>Titre</h1>\n<p>Paragraphe avec <strong>texte en gras</strong>.</p>\n<ul>\n<li>Item 1</li>\n<li>Item 2</li>\n</ul>\n</body>\n</html>",
+        "fromFormat": "html",
+        "toFormat": "plain",
+        "outputType": "text",
+        "additionalOptions": {
+          "wrap": "none"
+        }
+      },
+      "name": "HTML → Texte brut",
+      "type": "@neayi/n8n-pandoc.pandoc",
+      "typeVersion": 1,
+      "position": [460, 800]
+    }
+  ],
+  "connections": {
+    "When clicking 'Test workflow'": {
+      "main": [
+        [
+          {
+            "node": "Markdown → HTML",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "MediaWiki → Markdown",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Markdown → DOCX",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTML → Texte brut",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown → DOCX": {
+      "main": [
+        [
+          {
+            "node": "Sauvegarder DOCX",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {}
+}
