@@ -11,7 +11,7 @@
 
 Assurez-vous que :
 - La version est correcte (format semver: major.minor.patch)
-- Le nom est `@neayi/n8n-pandoc`
+- Le nom est `@neayi/n8n-nodes-pandoc`
 - Les informations du repository sont correctes
 
 ### 2. Builder le package
@@ -52,7 +52,7 @@ npm publish --access public --tag beta
 
 ### 6. Vérifier la publication
 
-Allez sur https://www.npmjs.com/package/@neayi/n8n-pandoc
+Allez sur https://www.npmjs.com/package/@neayi/n8n-nodes-pandoc
 
 ## Mise à jour de version
 
@@ -93,8 +93,8 @@ npm whoami
 
 ### Erreur "Package name taken"
 
-Vérifiez que le nom @neayi/n8n-pandoc n'est pas déjà pris :
-https://www.npmjs.com/package/@neayi/n8n-pandoc
+Vérifiez que le nom n8n-nodes-pandoc n'est pas déjà pris :
+https://www.npmjs.com/package/@neayi/n8n-nodes-pandoc
 
 ### Erreur de build
 

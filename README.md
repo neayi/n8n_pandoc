@@ -8,7 +8,7 @@ This package provides an n8n node for using Pandoc to convert documents between 
 1. Go to your n8n instance settings
 2. Navigate to "Community Nodes"
 3. Click "Install"
-4. Enter `@neayi/n8n-pandoc`
+4. Enter `@neayi/n8n-nodes-pandoc`
 
 ### Prerequisites
 **Important:** Pandoc must be installed on the system where n8n is running.
@@ -24,9 +24,10 @@ USER root
 # Download and install static pandoc binary
 # Using a multi-stage build approach with Alpine to download
 FROM alpine:latest AS downloader
-RUN apk add --no-cache wget tar && \
-    wget https://github.com/jgm/pandoc/releases/download/3.1.11.1/pandoc-3.1.11.1-linux-amd64.tar.gz && \
-    tar xvzf pandoc-3.1.11.1-linux-amd64.tar.gz --strip-components 1 -C /usr/local/
+RUN apk add --no-cache wget tar jq && \
+    PANDOC_VERSION=$(wget -qO- https://api.github.com/repos/jgm/pandoc/releases/latest | jq -r '.tag_name') && \
+    wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz && \
+    tar xvzf pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz --strip-components 1 -C /usr/local/
 
 # Final image
 FROM docker.n8n.io/n8nio/n8n
@@ -134,7 +135,7 @@ For issues and questions:
 ## Links
 
 - GitHub : https://github.com/neayi/n8n_pandoc
-- npm : https://www.npmjs.com/package/@neayi/n8n-pandoc
+- npm : https://www.npmjs.com/package/@neayi/n8n-nodes-pandoc
 
 ## Contributors
 

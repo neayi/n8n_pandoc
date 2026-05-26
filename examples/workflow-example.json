@@ -21,7 +21,7 @@
         }
       },
       "name": "Markdown → HTML",
-      "type": "@neayi/n8n-pandoc.pandoc",
+      "type": "@neayi/n8n-nodes-pandoc.pandoc",
       "typeVersion": 1,
       "position": [460, 200]
     },
@@ -37,7 +37,7 @@
         }
       },
       "name": "MediaWiki → Markdown",
-      "type": "@neayi/n8n-pandoc.pandoc",
+      "type": "@neayi/n8n-nodes-pandoc.pandoc",
       "typeVersion": 1,
       "position": [460, 400]
     },
@@ -54,7 +54,7 @@
         }
       },
       "name": "Markdown → DOCX",
-      "type": "@neayi/n8n-pandoc.pandoc",
+      "type": "@neayi/n8n-nodes-pandoc.pandoc",
       "typeVersion": 1,
       "position": [460, 600]
     },
@@ -82,7 +82,7 @@
         }
       },
       "name": "HTML → Texte brut",
-      "type": "@neayi/n8n-pandoc.pandoc",
+      "type": "@neayi/n8n-nodes-pandoc.pandoc",
       "typeVersion": 1,
       "position": [460, 800]
     }

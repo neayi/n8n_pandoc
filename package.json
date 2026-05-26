@@ -1,5 +1,5 @@
 {
-  "name": "@neayi/n8n-pandoc",
+  "name": "@neayi/n8n-nodes-pandoc",
   "version": "0.1.0",
   "description": "n8n node to invoke Pandoc for document conversion",
   "keywords": [
@@ -27,7 +27,8 @@
     "format:check": "prettier nodes --check",
     "lint": "eslint 'nodes/**/*.ts' package.json",
     "lintfix": "eslint 'nodes/**/*.ts' package.json --fix",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "release": "npm publish --access public"
   },
   "files": [
     "dist"
